@@ -24,7 +24,9 @@ class MainTambahBarangActivity : AppCompatActivity() {
 
         addJenisBarang()
 
-        adapterBarang = AdapterBarang()
+        adapterBarang = AdapterBarang{
+            Toast.makeText(this, it.barang, Toast.LENGTH_SHORT).show()
+        }
         binding.rvBarang.apply {
             adapter = adapterBarang
             layoutManager = LinearLayoutManager(this@MainTambahBarangActivity)
@@ -42,7 +44,7 @@ class MainTambahBarangActivity : AppCompatActivity() {
             val listBarangModel = mutableListOf<Barang>()
             listBarangModel.add(barangModel)
 
-            adapterBarang.addItem(listBarangModel, true)
+            adapterBarang.addItem(listBarangModel)
         }
     }
 

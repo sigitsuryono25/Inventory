@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.surelabsid.inventory.databinding.ItemAdapterBarangBinding
 
-class AdapterBarang : RecyclerView.Adapter<AdapterBarang.ViewHolder>() {
+class AdapterBarang(private val clickItem: (Barang) -> Unit) : RecyclerView.Adapter<AdapterBarang.ViewHolder>() {
 
     inner class ViewHolder(private val binding: ItemAdapterBarangBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -14,6 +14,12 @@ class AdapterBarang : RecyclerView.Adapter<AdapterBarang.ViewHolder>() {
             binding.namaBarang.text = barang.barang
             binding.harga.text = barang.harga
             binding.jenis.text = barang.jenis
+
+
+            //inti klik untuk masing-masing baris ke recyclerview nya
+            binding.root.setOnClickListener{
+                clickItem(barang)
+            }
         }
     }
 
@@ -39,7 +45,7 @@ class AdapterBarang : RecyclerView.Adapter<AdapterBarang.ViewHolder>() {
 
         listBarang.addAll(list)
 
-        notifyItemInserted(listBarang.size)
+        notifyDataSetChanged()
     }
 
 }
