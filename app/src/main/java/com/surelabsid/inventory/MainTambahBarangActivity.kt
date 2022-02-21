@@ -1,7 +1,10 @@
 package com.surelabsid.inventory
 
+import android.app.Activity
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Adapter
 import android.widget.ArrayAdapter
 import android.widget.Toast
@@ -31,7 +34,12 @@ class MainTambahBarangActivity : AppCompatActivity() {
             adapter = adapterBarang
             layoutManager = LinearLayoutManager(this@MainTambahBarangActivity)
         }
-        
+
+        binding.pilihGambar.setOnClickListener{
+            val pickImage = Intent(Intent.ACTION_OPEN_DOCUMENT)
+            pickImage.type = "image/*"
+            startActivityForResult(Intent.createChooser(pickImage, null), 1000)
+        }
         
         //kasih klik untuk tombol simpannya
         binding.simpanData.setOnClickListener { 
@@ -45,6 +53,15 @@ class MainTambahBarangActivity : AppCompatActivity() {
             listBarangModel.add(barangModel)
 
             adapterBarang.addItem(listBarangModel)
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode == 1000 && resultCode == Activity.RESULT_OK){
+            data?.let {
+                Log.d("Intent Result", "onActivityResult: $data")
+            }
         }
     }
 
